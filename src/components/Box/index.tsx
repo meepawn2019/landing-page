@@ -8,8 +8,16 @@ function Box(props: ThreeElements['mesh']) {
   const ref = useRef<THREE.Mesh>(null!)
   const [hovered, hover] = useState(false)
   const [clicked, click] = useState(false)
+  // state for geometry size
+  const [size, setSize] = useState([Math.random() * 0.1, Math.random() * 0.1, 0])
+  
   useFrame((state, delta) => {
-    ref.current.rotation.x += 0.01
+    // move the box up, if it's pass the top of the screen, place it back at the bottom of the screen
+    ref.current.position.y += 0.01
+    if (ref.current.position.y > 5) {
+      ref.current.position.y = -5
+    }
+    // ref.current.position.y = Math.sin(state.clock.getElapsedTime()) * 3
   })
   // useEffect(() => {
   //   ref.current.rotation.x = 0.25
@@ -24,8 +32,8 @@ function Box(props: ThreeElements['mesh']) {
       onClick={(event) => click(!clicked)}
       onPointerOver={(event) => hover(true)}
       onPointerOut={(event) => hover(false)}>
-      <boxGeometry args={[2, 1, 3]} />
-      <meshStandardMaterial color={hovered ? 'hotpink' : 'orange'} />
+      <boxGeometry args={size}  />
+      <meshStandardMaterial color={hovered ? 'hotpink' : 'white'} />
     </mesh>
   )
 }

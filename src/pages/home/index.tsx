@@ -17,13 +17,16 @@ const Home: FC = function () {
 
   return (
     <>
-      <Canvas>
+      <Canvas style={{background: "black"}}>
         <ambientLight />
-        <pointLight position={[10, 10, 10]} />
-        <Box position={[-1.2, 0, 0]} />
-        <Box position={locationBoxTwo} setLocation={setLocationBoxTwo} />
+        <pointLight position={[10, 10, 10]} color={'white'} intensity={0.8} />
+        {Array.from({length: 100}).map((_, index) => (
+          <>
+            <Box position={[ (Math.random() < 0.5 ? -1 : 1) * Math.random() * 10, (Math.random() < 0.5 ? -1 : 1) * Math.random() * 10, (Math.random() < 0.5 ? -1 : 1) * Math.random() * 10 ]} />
+            {/* <Box position={locationBoxTwo} /> */}
+          </>
+        ))}
       </Canvas>
-      ,
     </>
   );
 };
